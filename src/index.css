@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #00ff88;
+  --color-dark-bg: #030a08;
+}
+
+/* 1. Global Smooth Scrolling */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-dark-bg);
+  }
+
+  /* Hide scrollbar for a cleaner 'Dock' experience */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+/* 2. Custom rotation animation for background diamonds */
+@keyframes slow-rotate {
+  from { transform: rotate(45deg); }
+  to { transform: rotate(405deg); }
+}
+
+.animate-slow-rotate {
+  animation: slow-rotate 15s linear infinite;
+}
+
+/* 3. Utility for the Infinite Scroll Pause Logic */
+/* This ensures the animation stops cleanly when we hover in Collaborations */
+.pause-animation {
+  animation-play-state: paused !important;
+}
