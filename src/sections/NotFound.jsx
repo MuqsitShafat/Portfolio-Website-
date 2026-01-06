@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; // If using React Router
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen bg-[#F0F0F0] flex flex-col items-center justify-center px-6 text-center">
+    <div className="min-h-screen bg-[#aacc8e] flex flex-col items-center justify-center px-6 text-center">
       <div className="max-w-4xl w-full flex flex-col md:flex-row items-center justify-between gap-12">
         
         {/* Left Side: Animated Robot Image */}
