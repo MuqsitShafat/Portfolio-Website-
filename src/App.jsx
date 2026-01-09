@@ -30,7 +30,7 @@ function App() {
     <Router>
       <main className="relative selection:bg-brand-green/30 bg-dark-bg">
       <Snowfall 
-          color="82C3D9" 
+          color="#82C3D9" 
           snowflakeCount={50} 
           style={{
             position: 'fixed',

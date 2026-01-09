@@ -97,7 +97,7 @@ const About = ({ onSectionChange }) => {
           >
             <div className="rounded-[40px] overflow-hidden border border-white/10 shadow-2xl">
               <img
-                src="/Muqsit.png"
+                src="/Muqsit_2.png"
                 alt="About Me"
                 className="w-full h-auto object-cover aspect-4/5"
               />
