@@ -9,7 +9,7 @@ import Testimonials from "./sections/Testimonials";
 import Dock from "./components/Dock";
 import Contact from "./sections/Contact";
 import NotFound from "./sections/NotFound"; // Make sure this file exists in src/sections/
-
+import Snowfall from "react-snowfall";
 // This component holds your main website content
 const MainPortfolio = ({ activeSection, setActiveSection }) => (
   <>
@@ -29,6 +29,16 @@ function App() {
   return (
     <Router>
       <main className="relative selection:bg-brand-green/30 bg-dark-bg">
+      <Snowfall 
+          color="82C3D9" 
+          snowflakeCount={50} 
+          style={{
+            position: 'fixed',
+            width: '100vw',
+            height: '100vh',
+            zIndex: 1, // Keep it behind your text
+          }}
+        />
         <CustomCursor />
         
         <Routes>
