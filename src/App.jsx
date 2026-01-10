@@ -31,7 +31,7 @@ function App() {
       <main className="relative selection:bg-brand-green/30 bg-dark-bg">
       <Snowfall 
           color="#82C3D9" 
-          snowflakeCount={50} 
+          snowflakeCount={100} 
           style={{
             position: 'fixed',
             width: '100vw',

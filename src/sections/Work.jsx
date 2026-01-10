@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from "react"; // Added hooks
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 
 const Work = ({ onSectionChange }) => {
-  // Accept prop
   const sectionRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
 
-  // Observer to trigger Dock change
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -17,12 +15,13 @@ const Work = ({ onSectionChange }) => {
           }
         });
       },
-      { threshold: 0.2 } // Trigger when 20% of work is visible
+      { threshold: 0.2 }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, [onSectionChange]);
+
   const projects = [
     {
       id: "01",
@@ -31,8 +30,9 @@ const Work = ({ onSectionChange }) => {
         "A full-stack real-time communication suite featuring instant messaging, voice calls, and multi-language support.",
       tags: ["React Native", "Socket.io", "Node.js"],
       year: "2025",
-      image: "/chattrix.png", // Correct path for public folder
-      link: null, // Private repository
+      image: "/chattrix.png",
+      link: null,
+      color: "from-blue-600/20 to-indigo-900/40",
     },
     {
       id: "02",
@@ -41,8 +41,9 @@ const Work = ({ onSectionChange }) => {
         "A specialized name discovery platform for Muslim families, featuring advanced filtering for boys and girls names.",
       tags: ["Mobile", "UX/UI", "Data Filtering"],
       year: "2024",
-      image: "Ismiya.png", // Ismiya-preview.jpg", // Correct path for public folder
+      image: "Ismiya.png",
       link: "https://github.com/MuqsitShafat/Ismiya--Muslim-Name-suggester-App-using-react-native-only-for-Android-",
+      color: "from-emerald-600/20 to-teal-900/40",
     },
     {
       id: "03",
@@ -51,8 +52,9 @@ const Work = ({ onSectionChange }) => {
         "An expansive 40+ screen application dedicated to tracking extinct and endangered species globally, integrated with Google Maps API.",
       tags: ["Nature", "Maps API", "40+ Screens"],
       year: "2024",
-      image: "/nature_explorer.png", // Correct path for public folder
+      image: "/nature_explorer.png",
       link: "https://github.com/MuqsitShafat/Nature-Explorer-App-Detecting-the-Extinct-Species-of-nature-React-Native-cli-only-for-Android",
+      color: "from-green-600/20 to-green-900/40",
     },
     {
       id: "04",
@@ -61,8 +63,9 @@ const Work = ({ onSectionChange }) => {
         "A stylish and responsive e-commerce landing page for an anime-themed clothing brand, built with modern web technologies.",
       tags: ["HTML", "CSS", "JavaScript"],
       year: "2023",
-      image: "/Animora.png", // Correct path for public folder
+      image: "/Animora.png",
       link: "https://github.com/MuqsitShafat/Animora-Wears-an-anime-Clothing-brand-website",
+      color: "from-purple-600/20 to-pink-900/40",
     },
     {
       id: "05",
@@ -71,9 +74,10 @@ const Work = ({ onSectionChange }) => {
         "A lighthearted application that fetches and delivers fresh, categorized jokes in real-time using external APIs.",
       tags: ["API Integration", "React Native", "Axios"],
       year: "2023",
-      image: "/jokes.png", // Correct path for public folder
+      image: "/jokes.png",
       link: "https://github.com/MuqsitShafat/Jokes-App-React-Native-Android-App",
-    }
+      color: "from-orange-600/20 to-red-900/40",
+    },
   ];
 
   return (
@@ -94,6 +98,7 @@ const Work = ({ onSectionChange }) => {
           </span>
         </motion.div>
       </div>
+
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -101,9 +106,9 @@ const Work = ({ onSectionChange }) => {
       >
         <span className="text-5xl md:text-6xl">Solutions</span>
         <br className="md:hidden" />{" "}
-        {/* Optional: breaks line on mobile only */}
         <span className="text-white text-3xl md:text-4xl ml-2">Delivered.</span>
       </motion.h2>
+
       <div className="flex flex-col w-full border-b border-white/10 relative">
         {projects.map((project, index) => (
           <motion.div
@@ -121,11 +126,9 @@ const Work = ({ onSectionChange }) => {
                   "radial-gradient(1200px circle at 75% 50%, rgba(34, 197, 94, 0.15), transparent 80%)",
               }}
             />
-
             <span className="text-4xl md:text-5xl font-bold text-white/40 group-hover:text-brand-green transition-colors mr-12 min-w-17.5 z-20">
               {project.id}
             </span>
-
             <div className="grow flex flex-col gap-2 z-20">
               <h3 className="text-4xl md:text-5xl font-bold text-white">
                 {project.title}
@@ -134,7 +137,6 @@ const Work = ({ onSectionChange }) => {
                 {project.description}
               </p>
             </div>
-
             <div className="flex items-center gap-6 mt-8 md:mt-0 md:ml-12 z-10">
               <div className="flex gap-2">
                 {project.tags.map((tag) => (
@@ -160,77 +162,113 @@ const Work = ({ onSectionChange }) => {
         ))}
       </div>
 
-      {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-100 flex items-center justify-center p-0 md:p-4">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
             />
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="relative w-full max-w-4xl bg-[#111] border border-white/10 rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row h-auto md:h-125"
+              layoutId={`project-${selectedProject.id}`}
+              className="relative w-full h-full md:h-auto md:max-h-[90vh] max-w-5xl bg-[#080808] border border-white/10 shadow-2xl overflow-hidden flex flex-col"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
             >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute right-4 top-4 z-110 p-2 bg-black/50 rounded-full text-white hover:bg-white/10 transition-colors"
-              >
-                <X size={20} />
-              </button>
-
-              {/* Left Side: Project Preview */}
-              <div className="w-full md:w-1/2 bg-[#1a1a1a] flex items-center justify-center p-8 relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#333 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-                />
+              <div className="h-12 border-b border-white/10 flex items-center justify-between px-4 bg-white/5 shrink-0 z-20">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 bg-red-500/50 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500/50 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500/50 rounded-full"></div>
+                  </div>
+                  <span className="text-xs font-mono text-gray-500 max-w-37.5 truncate">
+                    {selectedProject.title.toLowerCase().replace(/\s/g, "_")}
+                    .exe
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="p-1 hover:bg-white/10 rounded transition-colors text-gray-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
-              {/* Right Side: Details */}
-              <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-[#111]">
-                <h3 className="text-4xl font-bold text-white mb-4">
-                  {selectedProject.title}
-                </h3>
-                <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                  {selectedProject.description}
-                </p>
-
-                <div className="mb-8">
-                  <span className="text-[10px] tracking-widest uppercase text-brand-green font-bold block mb-4">Tech Stack</span>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.tags.map((tag) => (
-                      <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded text-xs text-gray-300 font-mono">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+              <div className="flex flex-col md:flex-row h-full overflow-y-auto md:overflow-hidden">
+                <div
+                  className={`w-full md:w-1/2 h-64 md:h-125 shrink-0 bg-linear-to-br ${
+                    selectedProject.color ||
+                    "from-brand-green/10 to-brand-green/5"
+                  } relative p-4 md:p-8 flex items-center justify-center overflow-hidden`}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#000000_100%)] opacity-50"></div>
+                  {selectedProject.image ? (
+                    <img
+                      src={selectedProject.image}
+                      alt="Preview"
+                      className="relative z-10 rounded shadow-2xl border border-white/20 transform hover:scale-105 transition-transform duration-500 max-h-[90%] w-auto object-contain"
+                    />
+                  ) : (
+                    <div className="relative z-11 text-4xl md:text-6xl opacity-20 font-bold mix-blend-overlay">
+                      PREVIEW
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-size-[20px_20px] bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)]"></div>
                 </div>
 
-                {selectedProject.link ? (
-                  <a 
-                    href={selectedProject.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full py-4 bg-white text-black font-bold uppercase tracking-widest text-sm hover:bg-brand-green transition-colors duration-300 rounded text-center"
-                  >
-                    Source Code
-                  </a>
-                ) : (
-                  <button 
-                    disabled
-                    className="w-full py-4 bg-white/10 text-white/30 font-bold uppercase tracking-widest text-sm rounded cursor-not-allowed"
-                  >
-                    Available Soon
-                  </button>
-                )}
+                <div className="w-full md:w-1/2 p-6 md:p-10 overflow-y-auto bg-[#080808]">
+                  <div className="space-y-8 pb-10">
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                        {selectedProject.title}
+                      </h2>
+                      <p className="text-gray-400 leading-relaxed font-light text-sm md:text-base">
+                        {selectedProject.description}
+                      </p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <h3 className="text-xs font-mono uppercase tracking-widest text-brand-green">
+                        Tech Stack
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.tags.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-white/5 border border-white/10 text-xs font-mono text-gray-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4 pt-4 border-t border-white/10">
+                      {selectedProject.link ? (
+                        <a
+                          href={selectedProject.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex-1 py-3 border border-white text-center text-xs md:text-sm font-bold uppercase tracking-wider text-white hover:bg-white hover:text-black transition-all"
+                        >
+                          Source Code
+                        </a>
+                      ) : (
+                        <button
+                          disabled
+                          className="flex-1 py-3 border border-white/10 text-gray-600 text-center text-xs md:text-sm font-bold uppercase tracking-wider cursor-not-allowed"
+                        >
+                          Private Repo
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>

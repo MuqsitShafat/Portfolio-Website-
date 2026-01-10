@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { FiFeather, FiTarget, FiGrid, FiTrendingUp, FiBriefcase, FiAward } from "react-icons/fi";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { FiGrid, FiTrendingUp, FiBriefcase, FiAward } from "react-icons/fi";
 import { SiReact, SiAndroidstudio } from "react-icons/si";
 
 const About = ({ onSectionChange }) => {
   const containerRef = useRef(null);
   const aboutSectionRef = useRef(null);
 
-// --- ADD THE FIX HERE ---
   useEffect(() => {
     if (!aboutSectionRef.current || !onSectionChange) return;
 
@@ -15,17 +14,13 @@ const About = ({ onSectionChange }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // This ensures when scrolling Down from Work, 
-            // the Dock switches to 'About' immediately
-            onSectionChange('About'); 
+            onSectionChange("About");
           }
         });
       },
-      { 
-        threshold: 0.1, 
-        // rootMargin "10% 0px -20% 0px" helps catch the section 
-        // as it enters from the bottom during a down-scroll.
-        rootMargin: "10% 0px -20% 0px" 
+      {
+        threshold: 0.1,
+        rootMargin: "10% 0px -20% 0px",
       }
     );
 
@@ -33,9 +28,12 @@ const About = ({ onSectionChange }) => {
     return () => observer.disconnect();
   }, [onSectionChange]);
 
-  const text1 = "I specialize in engineering high-performance mobile architectures. For me, development isn't just about writing code—it's about building scalable digital products that bridge the gap between complex logic and effortless user experiences.";
-  const text2 = "My core focus is on the React Native ecosystem, where I craft seamless cross-platform applications for Android and iOS. I prioritize fluid animations, optimized state management, and clean, maintainable codebases that can grow with your business.";
-  const text3 = "From architecting real-time communication systems like Chattrix to integrating complex third-party APIs using Android Studio and Node.js, I am dedicated to pushing technical boundaries to deliver premium, production-ready solutions.";
+  const text1 =
+    "I specialize in engineering high-performance mobile architectures. For me, development isn't just about writing code—it's about building scalable digital products that bridge the gap between complex logic and effortless user experiences.";
+  const text2 =
+    "My core focus is on the React Native ecosystem, where I craft seamless cross-platform applications for Android and iOS. I prioritize fluid animations, optimized state management, and clean, maintainable codebases that can grow with your business.";
+  const text3 =
+    "From architecting real-time communication systems like Chattrix to integrating complex third-party APIs using Android Studio and Node.js, I am dedicated to pushing technical boundaries to deliver premium, production-ready solutions.";
 
   const expertise = [
     {
@@ -61,8 +59,15 @@ const About = ({ onSectionChange }) => {
   ];
 
   return (
-    <section id="about" ref={containerRef} className="min-h-screen bg-dark-bg py-32 px-6 md:px-20 relative">
-      <div ref={aboutSectionRef} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <section
+      id="about"
+      ref={containerRef}
+      className="min-h-screen bg-dark-bg py-32 px-6 md:px-20 relative"
+    >
+      <div
+        ref={aboutSectionRef}
+        className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start"
+      >
         <div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +83,9 @@ const About = ({ onSectionChange }) => {
             className="flex items-center gap-2 border border-brand-green/30 px-3 py-1 rounded-full bg-brand-green/5 w-fit mb-8"
           >
             <div className="w-2 h-2 bg-brand-green rounded-full" />
-            <span className="text-brand-green text-[10px] font-bold tracking-widest uppercase">Driven by Purpose</span>
+            <span className="text-brand-green text-[10px] font-bold tracking-widest uppercase">
+              Driven by Purpose
+            </span>
           </motion.div>
 
           <div className="flex flex-col gap-6">
@@ -124,8 +131,12 @@ const About = ({ onSectionChange }) => {
               <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 {item.icon}
               </div>
-              <h4 className="text-lg font-semibold text-white mb-3">{item.title}</h4>
-              <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+              <h4 className="text-lg font-semibold text-white mb-3">
+                {item.title}
+              </h4>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                {item.desc}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -138,7 +149,24 @@ const About = ({ onSectionChange }) => {
 
 const ExperienceSection = ({ onSectionChange }) => {
   const sectionRef = useRef(null);
+  const scrollingContainerRef = useRef(null);
   const experienceHeaderRef = useRef(null);
+  const [scrollRange, setScrollRange] = useState(0);
+
+  useEffect(() => {
+    const calculateRange = () => {
+      if (scrollingContainerRef.current) {
+        const containerWidth = scrollingContainerRef.current.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const offset = windowWidth * 0.15;
+        setScrollRange(containerWidth - windowWidth + offset);
+      }
+    };
+
+    calculateRange();
+    window.addEventListener("resize", calculateRange);
+    return () => window.removeEventListener("resize", calculateRange);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -152,7 +180,7 @@ const ExperienceSection = ({ onSectionChange }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            onSectionChange('About'); // Stay on 'About' while scrolling the timeline
+            onSectionChange("About");
           }
         });
       },
@@ -163,24 +191,74 @@ const ExperienceSection = ({ onSectionChange }) => {
     return () => observer.disconnect();
   }, [onSectionChange]);
 
-  const x = useTransform(scrollYProgress, [0, 1], ["5%", "-88%"]);
+  const x = useTransform(scrollYProgress, [0, 1], [0, -scrollRange]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   const experiences = [
-    { year: "2025", title: "App Developer", company: "SMDevs.co", location: "Remote", period: "2025 - Present", type: "work" },
-    { year: "2024", title: "Mobile App Intern", company: "Interncraft", location: "Software House", period: "2024 - 2025", type: "work" },
-    { year: "2024", title: "Android Specialist", company: "Native Labs", location: "Android Studio / JavaScript", period: "2024", type: "work" },
-    { year: "2025", title: "React Native Developer", company: "Senew Tech", location: "Pakistan", period: "2024 (Project-Based)", type: "work" },
-    { year: "2024", title: "UI/UX Specialist", company: "Freelance", location: "Remote", period: "2024 - Present", type: "work" },
-    { year: "2024", title: "Started BSCS", company: "Virtual University", location: "Pakistan", period: "2024 - 2027", type: "education" },
+    {
+      year: "2025",
+      title: "App Developer",
+      company: "SMDevs.co",
+      location: "Remote",
+      period: "2025 - Present",
+      type: "work",
+    },
+    {
+      year: "2024",
+      title: "Mobile App Intern",
+      company: "Interncraft",
+      location: "Software House",
+      period: "2024 - 2025",
+      type: "work",
+    },
+    {
+      year: "2024",
+      title: "Android Specialist",
+      company: "Native Labs",
+      location: "Android Studio / JavaScript",
+      period: "2024",
+      type: "work",
+    },
+    {
+      year: "2025",
+      title: "React Native Developer",
+      company: "Senew Tech",
+      location: "Pakistan",
+      period: "2024 (Project-Based)",
+      type: "work",
+    },
+    {
+      year: "2024",
+      title: "UI/UX Specialist",
+      company: "Freelance",
+      location: "Remote",
+      period: "2024 - Present",
+      type: "work",
+    },
+    {
+      year: "2024",
+      title: "Started BSCS",
+      company: "Virtual University",
+      location: "Pakistan",
+      period: "2024 - 2027",
+      type: "education",
+    },
   ];
 
   return (
-    <div id="experience" ref={sectionRef} className="h-[600vh] relative mt-40">
+    <div
+      id="experience"
+      ref={sectionRef}
+      className="h-[500vh] md:h-[600vh] relative mt-40"
+    >
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
         <div ref={experienceHeaderRef} className="px-4 mb-10">
-          <h2 className="text-5xl md:text-6xl font-bold text-brand-green mb-2">Experience</h2>
-          <p className="text-gray-400 text-lg">Engineering robust mobile solutions and scalable digital products</p>
+          <h2 className="text-5xl md:text-6xl font-bold text-brand-green mb-2">
+            Experience
+          </h2>
+          <p className="text-gray-400 text-lg">
+            Engineering robust mobile solutions and scalable digital products
+          </p>
         </div>
 
         <div className="relative w-full h-fit flex items-center py-20 mb-10">
@@ -189,7 +267,11 @@ const ExperienceSection = ({ onSectionChange }) => {
             style={{ width: progressWidth }}
             className="absolute top-27 left-0 h-0.5 bg-brand-green/40 origin-left z-0"
           />
-          <motion.div style={{ x }} className="flex gap-16 pr-[20vw] relative z-10">
+          <motion.div
+            ref={scrollingContainerRef}
+            style={{ x }}
+            className="flex gap-12 md:gap-20 px-10 md:px-[10vw] relative z-10"
+          >
             {experiences.map((exp, i) => {
               const step = 1 / experiences.length;
               const point = i * step;
@@ -211,7 +293,11 @@ const ExperienceSection = ({ onSectionChange }) => {
 };
 
 const ExperienceCard = ({ exp, index, progress, point }) => {
-  const dotColor = useTransform(progress, [point - 0.05, point], ["#374151", "#22C55E"]);
+  const dotColor = useTransform(
+    progress,
+    [point - 0.05, point],
+    ["#374151", "#22C55E"]
+  );
   const glowOpacity = useTransform(progress, [point - 0.05, point], [0, 1]);
 
   return (
@@ -226,7 +312,13 @@ const ExperienceCard = ({ exp, index, progress, point }) => {
           className="absolute w-12 h-12 rounded-full bg-brand-green/30 blur-md z-10"
         />
       </div>
-      <div className={`bg-[#121212] border ${index === 0 ? 'border-brand-green/30 shadow-[0_10px_40px_rgba(34,197,94,0.05)]' : 'border-white/5'} p-8 rounded-4xl w-85 group hover:border-brand-green/50 transition-all duration-500`}>
+      <div
+        className={`bg-[#121212] border ${
+          index === 0
+            ? "border-brand-green/30 shadow-[0_10px_40px_rgba(34,197,94,0.05)]"
+            : "border-white/5"
+        } p-8 rounded-4xl w-72 md:w-85 group hover:border-brand-green/50 transition-all duration-500`}
+      >
         <div className="flex justify-between items-start mb-1">
           <span className="px-3 py-1 rounded-full border border-white/10 text-gray-400 text-[10px] font-bold uppercase tracking-widest">
             {exp.year}
@@ -235,11 +327,17 @@ const ExperienceCard = ({ exp, index, progress, point }) => {
             {exp.type === "work" ? <FiBriefcase /> : <FiAward />}
           </div>
         </div>
-        <h3 className="text-2xl font-bold text-white mb-1">{exp.title}</h3>
-        <p className="text-gray-400 text-sm mb-4">{exp.company}</p>
+        <h3 className="text-xl md:text-2xl font-bold text-white mb-1">
+          {exp.title}
+        </h3>
+        <p className="text-gray-400 text-xs md:text-sm mb-4">{exp.company}</p>
         <div className="mt-6 pt-6 border-t border-white/5 flex flex-col gap-1">
-          <span className="text-brand-green text-xs font-medium uppercase tracking-wider">{exp.location}</span>
-          <span className="text-gray-500 text-xs font-mono">{exp.period}</span>
+          <span className="text-brand-green text-[10px] md:text-xs font-medium uppercase tracking-wider">
+            {exp.location}
+          </span>
+          <span className="text-gray-500 text-[10px] md:text-xs font-mono">
+            {exp.period}
+          </span>
         </div>
       </div>
     </div>
@@ -255,11 +353,18 @@ const Paragraph = ({ value }) => {
 
   const words = value.split(" ");
   return (
-    <p ref={element} className="flex flex-wrap text-lg md:text-xl font-medium leading-relaxed text-gray-500">
+    <p
+      ref={element}
+      className="flex flex-wrap text-lg md:text-xl font-medium leading-relaxed text-gray-500"
+    >
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;
-        return <Word key={i} range={[start, end]} progress={scrollYProgress}>{word}</Word>;
+        return (
+          <Word key={i} range={[start, end]} progress={scrollYProgress}>
+            {word}
+          </Word>
+        );
       })}
     </p>
   );
@@ -268,12 +373,10 @@ const Paragraph = ({ value }) => {
 const Word = ({ children, range, progress }) => {
   const opacity = useTransform(progress, range, [0.2, 1]);
   const color = useTransform(progress, range, ["#4b5563", "#ffffff"]);
-  
+
   return (
     <span className="relative mr-2 mb-1">
-      <motion.span style={{ opacity, color }}>
-        {children}
-      </motion.span>
+      <motion.span style={{ opacity, color }}>{children}</motion.span>
     </span>
   );
 };

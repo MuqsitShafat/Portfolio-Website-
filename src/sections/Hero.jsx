@@ -44,7 +44,7 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen flex flex-col md:flex-row items-start justify-between px-10 pt-10 relative overflow-hidden bg-dark-bg"
+      className="min-h-screen flex flex-col md:flex-row items-start justify-between px-10 pt-3 relative overflow-hidden bg-dark-bg"
     >
       {/* 1. LOCATION BADGE */}
       <div className="absolute top-10 left-10 z-20">
@@ -116,12 +116,13 @@ const Hero = () => {
       </div>
 
       {/* 3. RIGHT SIDE IMAGE & CARDS */}
-      <div className="relative mt-32 flex justify-center items-center z-10 md:mr-20 transform -translate-y-13">
-        <div className="absolute w-80 h-110 md:w-90 md:h-120 border-2 border-brand-green/40 animate-slow-rotate rounded-[60px] z-0" />
+      <div className="relative mt-12 mb-32 md:mt-32 flex justify-center items-center z-10 md:mr-20">
+        {/* Diamond Border - Updated for Responsiveness */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-2 border-brand-green/40 animate-slow-rotate rounded-[60px] z-0" />
 
         <div className="relative w-64 h-80 md:w-90 md:h-120 border border-white/10 rounded-[30px] overflow-hidden p-2 bg-white/5 shadow-2xl z-10">
           <img
-            src="/Muqsit.png"
+            src="/Muqsit_1.jpeg"
             alt="Muqsit"
             className="w-full h-full object-cover object-top rounded-[25px]"
           />
