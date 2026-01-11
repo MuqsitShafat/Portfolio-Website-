@@ -39,14 +39,11 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, index, speed]);
 
-  const isLongText = displayText.length > 20;
-
   return (
     <section
       id="hero"
       className="min-h-screen flex flex-col md:flex-row items-start justify-between px-10 pt-3 relative overflow-hidden bg-dark-bg"
     >
-      {/* 1. LOCATION BADGE */}
       <div className="absolute top-10 left-10 z-20">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -60,20 +57,15 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* 2. TEXT CONTENT */}
-      <div className="max-w-2xl z-10 mt-32">
+      <div className="max-w-full md:max-w-3xl z-10 mt-32">
         <motion.h1
-          className={`font-bold leading-tight text-white transition-all duration-300 ${
-            isLongText
-              ? "text-[clamp(1.5rem,5vw,2.8rem)]"
-              : "text-[clamp(2rem,6vw,3.5rem)]"
-          }`}
+          className="font-bold leading-tight text-white transition-all duration-300 min-h-35 sm:min-h-40 md:min-h-45 text-[clamp(1.8rem,8vw,3.5rem)]"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
         >
           Hi, I'm <br />
-          <span className="text-white inline-block min-h-[1.2em]">
+          <span className="text-white inline-block wrap-break-word max-w-[90vw] md:max-w-none">
             {displayText}
             <motion.span
               animate={{ opacity: [0, 1, 0] }}
@@ -83,7 +75,7 @@ const Hero = () => {
           </span>
         </motion.h1>
 
-        <p className="text-brand-green text-[clamp(1.1rem,2.5vw,1.8rem)] font-medium mt-4">
+        <p className="text-brand-green text-[clamp(1rem,2.5vw,1.8rem)] font-medium mt-4">
           Crafting seamless mobile experiences for Android and iOS.
         </p>
 
@@ -92,12 +84,11 @@ const Hero = () => {
           architecture, and smooth user interfaces.
         </p>
 
-        <div className="flex gap-4 mt-10">
-          {/* Change 'button' to 'a' and add the href and download attributes */}
+        <div className="flex flex-wrap gap-4 mt-10">
           <a
             href="/Muqsit_Resume.pdf"
             download="Muqsit_Resume.pdf"
-            className="bg-brand-green text-black px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer no-underline"
+            className="bg-brand-green text-black px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer no-underline text-sm md:text-base"
           >
             Download Resume <span>↓</span>
           </a>
@@ -108,16 +99,14 @@ const Hero = () => {
                 .getElementById("contact")
                 .scrollIntoView({ behavior: "smooth" })
             }
-            className="border border-brand-green text-brand-green px-8 py-3 rounded-full font-bold hover:bg-brand-green/10 transition-colors cursor-pointer"
+            className="border border-brand-green text-brand-green px-8 py-3 rounded-full font-bold hover:bg-brand-green/10 transition-colors cursor-pointer text-sm md:text-base"
           >
             Let's Chat
           </button>
         </div>
       </div>
 
-      {/* 3. RIGHT SIDE IMAGE & CARDS */}
       <div className="relative mt-12 mb-32 md:mt-32 flex justify-center items-center z-10 md:mr-20">
-        {/* Diamond Border - Updated for Responsiveness */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-2 border-brand-green/40 animate-slow-rotate rounded-[60px] z-0" />
 
         <div className="relative w-64 h-80 md:w-90 md:h-120 border border-white/10 rounded-[30px] overflow-hidden p-2 bg-white/5 shadow-2xl z-10">
@@ -155,7 +144,6 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* 4. FLOATING CHAT ICON */}
       <div className="fixed bottom-10 right-10 z-50">
         <motion.button
           whileHover={{ scale: 1.1 }}
