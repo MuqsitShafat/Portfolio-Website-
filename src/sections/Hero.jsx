@@ -144,7 +144,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="fixed bottom-10 right-10 z-50">
+      <div className="fixed bottom-23 right-10 md:bottom-10 z-50">
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
