@@ -23,7 +23,7 @@ const Work = ({ onSectionChange }) => {
   }, [onSectionChange]);
 
   const projects = [
-    {
+  {
       id: "01",
       title: "Chattrix",
       description:
@@ -31,7 +31,8 @@ const Work = ({ onSectionChange }) => {
       tags: ["React Native", "Socket.io", "Node.js"],
       year: "2025",
       image: "/chattrix.png",
-      link: null,
+      // Updated from null to your repository link
+      link: "https://github.com/MuqsitShafat/Chattrix-A-chat-app-using-React-native-cli-only-for-android",
       color: "from-blue-600/20 to-indigo-900/40",
     },
     {
